@@ -1,5 +1,6 @@
 from tkinter import *
 import variable.var_global as vg
+import view.view_create as vc
 
 def vistaEstudiante():
     global img_salir, img_add, img_read, img_update, img_delete
@@ -10,6 +11,7 @@ def vistaEstudiante():
     view_student.geometry("800x500+360+100")
     view_student.configure(bg="white")
     view_student.resizable(0,0)
+    view_student.grab_set() #Para bloquear la ventana principal
 
     ############# Header
     f_header=Frame(view_student,width=800,height=100,bg="white")
@@ -34,7 +36,7 @@ def vistaEstudiante():
     f_navbar.place(x=0,y=400)
 
     img_add = PhotoImage(file='./img/img-add.png')
-    btn_add=Button(f_navbar,image=img_add,width=200,pady=7,text="Crear Estudiante",bg="white",fg="black",border=0,font=(vg.g_font,10),compound=BOTTOM)
+    btn_add=Button(f_navbar,image=img_add,width=200,pady=7,text="Crear Estudiante",bg="white",fg="black",border=0,font=(vg.g_font,10),compound=BOTTOM,command=lambda: vc.crearEstudiante(f_body))
     btn_add.place(x=0,y=2)
 
     img_read = PhotoImage(file='./img/img-read.png')
