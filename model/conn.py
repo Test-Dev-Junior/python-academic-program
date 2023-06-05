@@ -19,4 +19,4 @@ def crearTabla():
         print("La tabla ya existe")
     cursor.close()
 
-crearTabla()
+#crearTabla()
