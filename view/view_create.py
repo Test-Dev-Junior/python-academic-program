@@ -1,5 +1,7 @@
 from tkinter import *
 import variable.var_global as vg
+import model.conn as db
+from tkinter import messagebox
 
 def crearEstudiante(f_body):
 
@@ -40,7 +42,29 @@ def crearEstudiante(f_body):
     et_age=Entry(f_form,border=0,font=(vg.g_font,14),width=30)
     et_age.place(x=180,y=150)
 
+    def validarEntradas():
+        if et_name.get() != "" and et_age.get() != "" and et_lastname.get() != "":
+            if (any(chr.isdigit() for chr in et_name.get()) != True):
+                if (any(chr.isdigit() for chr in et_lastname.get()) != True):
+                    if et_age.get().isnumeric():
+                        edad=et_age.get()
+                        apellido=et_lastname.get()
+                        nombre=et_name.get()
+                        db.insertarDatos(nombre,apellido,edad)
+
+                        et_name.delete(0,END)
+                        et_lastname.delete(0,END)
+                        et_age.delete(0,END)
+                    else:
+                        messagebox.showwarning(title="Tipo de dato inválido",message="Por favor debe ingresar un número en el campo edad")
+                else:
+                    messagebox.showwarning(title="Tipo de dato inválido",message="Por favor debe ingresar texto en el campo apellido") 
+            else:
+                messagebox.showwarning(title="Tipo de dato inválido",message="Por favor debe ingresar texto en el campo nombre")    
+        else:
+            messagebox.showerror(title="Error de ingreso de datos",message="Por favor llene todos los campos")
+
     ##
     img_save = PhotoImage(file='./img/img-save.png')
-    btn_read=Button(f_form,image=img_save,width=200,pady=7,text="Guardar Estudiante",bg="white",fg="black",border=0,font=(vg.g_font,10),compound=LEFT)
+    btn_read=Button(f_form,image=img_save,width=200,pady=7,text="Guardar Estudiante",bg="white",fg="black",border=0,font=(vg.g_font,10),compound=LEFT,command=validarEntradas)
     btn_read.place(x=200,y=220)

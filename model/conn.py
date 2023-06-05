@@ -1,4 +1,5 @@
 import psycopg2
+from tkinter import messagebox
 
 connection=psycopg2.connect(
     host="localhost",
@@ -20,3 +21,13 @@ def crearTabla():
     cursor.close()
 
 #crearTabla()
+
+def insertarDatos(nombre,apellido,edad):
+    cursor=connection.cursor()
+    query=f""" INSERT INTO tb_estudiante(nombre,apellido,edad) values ('{nombre}','{apellido}',{edad})"""
+    try:
+        cursor.execute(query)
+        messagebox.showinfo(title="Guardado de datos",message="Se guardaron los datos exitosamente")
+    except:
+        print("Error al guardar los datos")
+    cursor.close()
