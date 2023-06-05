@@ -42,7 +42,7 @@ def crearEstudiante(f_body):
     et_age=Entry(f_form,border=0,font=(vg.g_font,14),width=30)
     et_age.place(x=180,y=150)
 
-    def validarEntradas():
+    def insertarEstudiante():
         if et_name.get() != "" and et_age.get() != "" and et_lastname.get() != "":
             if (any(chr.isdigit() for chr in et_name.get()) != True):
                 if (any(chr.isdigit() for chr in et_lastname.get()) != True):
@@ -66,5 +66,5 @@ def crearEstudiante(f_body):
 
     ##
     img_save = PhotoImage(file='./img/img-save.png')
-    btn_read=Button(f_form,image=img_save,width=200,pady=7,text="Guardar Estudiante",bg="white",fg="black",border=0,font=(vg.g_font,10),compound=LEFT,command=validarEntradas)
+    btn_read=Button(f_form,image=img_save,width=200,pady=7,text="Guardar Estudiante",bg="white",fg="black",border=0,font=(vg.g_font,10),compound=LEFT,command=insertarEstudiante)
     btn_read.place(x=200,y=220)

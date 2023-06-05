@@ -29,7 +29,8 @@ def insertarDatos(nombre,apellido,edad):
         cursor.execute(query)
         messagebox.showinfo(title="Guardado de datos",message="Se guardaron los datos exitosamente")
     except:
-        print("Error al guardar los datos")
+        messagebox.showerror(title="Guardado de datos",message="Se produjo un error con la conexión de la DB al intentar guardar los datos")
+        #print("Se produjo un error con la conexión de la DB al intentar guardar los datos")
     cursor.close()
 
 def leerDatos():
@@ -41,5 +42,30 @@ def leerDatos():
         messagebox.showinfo(title="Recuperación de datos",message="Se recuperaron los datos exitosamente")
         return arr_students
     except:
-        print("Error al recuperar los datos")
+        messagebox.showerror(title="Guardado de datos",message="Se produjo un error con la conexión de la DB al intentar recuperar los datos")
+        #print("Se produjo un error con la conexión de la DB al intentar recuperar los datos")
+    cursor.close()
+
+def actualizarDatos(id,nombre,apellido,edad):
+    cursor=connection.cursor()
+    query=f""" UPDATE tb_estudiante set nombre='{nombre}',apellido='{apellido}',edad={edad} where id='{id}'"""
+    try:
+        cursor.execute(query)
+        messagebox.showinfo(title="Actualización de datos",message="Se actualizaron los datos exitosamente")
+    except:
+        messagebox.showerror(title="Actualización de datos",message="Se produjo un error con la conexión de la DB al intentar actualizar los datos")
+        #print("Se produjo un error con la conexión de la DB al intentar actualizar los datos")
+    cursor.close()
+
+def leerDatosId(id):
+    cursor=connection.cursor()
+    query=f""" SELECT * FROM tb_estudiante where id='{id}' """
+    try:
+        cursor.execute(query)
+        arr_students=cursor.fetchone()
+        messagebox.showinfo(title="Recuperación de datos",message="Se recuperaron los datos exitosamente")
+        return arr_students
+    except:
+        messagebox.showerror(title="Guardado de datos",message="Se produjo un error con la conexión de la DB al intentar recuperar los datos")
+        #print("Se produjo un error con la conexión de la DB al intentar recuperar los datos")
     cursor.close()
