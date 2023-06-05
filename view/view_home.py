@@ -1,9 +1,10 @@
 from tkinter import *
 import variable.var_global as vg
 import view.view_create as vc
+import view.view_read as vr
 
 def vistaEstudiante():
-    global img_salir, img_add, img_read, img_update, img_delete
+    global img_salir, img_create, img_read, img_update, img_delete
 
     #####
     view_student=Toplevel()
@@ -38,12 +39,12 @@ def vistaEstudiante():
     f_navbar=Frame(view_student,width=800,height=100,bg="white")
     f_navbar.place(x=0,y=400)
 
-    img_add = PhotoImage(file='./img/img-add.png')
-    btn_add=Button(f_navbar,image=img_add,width=200,pady=7,text="Crear Estudiante",bg="white",fg="black",border=0,font=(vg.g_font,10),compound=BOTTOM,command=lambda:[vc.crearEstudiante(f_body),statusAdd()])
-    btn_add.place(x=0,y=2)
+    img_create = PhotoImage(file='./img/img-create.png')
+    btn_create=Button(f_navbar,image=img_create,width=200,pady=7,text="Crear Estudiante",bg="white",fg="black",border=0,font=(vg.g_font,10),compound=BOTTOM,command=lambda:[vc.crearEstudiante(f_body),focusCreate()])
+    btn_create.place(x=0,y=2)
 
     img_read = PhotoImage(file='./img/img-read.png')
-    btn_read=Button(f_navbar,image=img_read,width=200,pady=7,text="Leer Estudiante",bg="white",fg="black",border=0,font=(vg.g_font,10),compound=BOTTOM)
+    btn_read=Button(f_navbar,image=img_read,width=200,pady=7,text="Leer Estudiante",bg="white",fg="black",border=0,font=(vg.g_font,10),compound=BOTTOM,command=lambda:[vr.leerEstudiante(f_body),focusRead()])
     btn_read.place(x=200,y=2)
 
     img_update = PhotoImage(file='./img/img-update.png')
@@ -54,5 +55,28 @@ def vistaEstudiante():
     btn_delete=Button(f_navbar,image=img_delete,width=200,pady=7,text="Eliminar Estudiante",bg="white",fg="black",border=0,font=(vg.g_font,10),compound=BOTTOM)
     btn_delete.place(x=600,y=2)
     
-    def statusAdd():
-        btn_add.configure(bg="#AED6F1")
+    def focusCreate():
+        btn_create.configure(bg="#AED6F1")
+        btn_create.config(state="disabled")
+
+        btn_read.configure(bg="white")
+        btn_read.config(state="active")
+        
+        btn_update.configure(bg="white")
+        btn_update.config(state="active")
+        
+        btn_delete.configure(bg="white")
+        btn_delete.config(state="active")
+
+    def focusRead():
+        btn_create.configure(bg="white")
+        btn_create.config(state="active")
+
+        btn_read.configure(bg="#AED6F1")
+        btn_read.config(state="disabled")
+        
+        btn_update.configure(bg="white")
+        btn_update.config(state="active")
+        
+        btn_delete.configure(bg="white")
+        btn_delete.config(state="active")
