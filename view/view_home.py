@@ -3,6 +3,7 @@ import variable.var_global as vg
 import view.view_create as vc
 import view.view_read as vr
 import view.view_update as vu
+import view.view_delete as vd
 
 def vistaEstudiante():
     global img_salir, img_create, img_read, img_update, img_delete
@@ -53,7 +54,7 @@ def vistaEstudiante():
     btn_update.place(x=400,y=2)
 
     img_delete = PhotoImage(file='./img/img-delete.png')
-    btn_delete=Button(f_navbar,image=img_delete,width=200,pady=7,text="Eliminar Estudiante",bg="white",fg="black",border=0,font=(vg.g_font,10),compound=BOTTOM)
+    btn_delete=Button(f_navbar,image=img_delete,width=200,pady=7,text="Eliminar Estudiante",bg="SystemButtonFace",fg="black",border=0,font=(vg.g_font,10),compound=BOTTOM,command=lambda:[vd.eliminarEstudiante(f_body),focusDelete()])
     btn_delete.place(x=600,y=2)
     
     #####
@@ -95,3 +96,16 @@ def vistaEstudiante():
         
         btn_delete.configure(bg="white")
         btn_delete.config(state="active")
+    
+    def focusDelete():
+        btn_create.configure(bg="white")
+        btn_create.config(state="active")
+
+        btn_read.configure(bg="white")
+        btn_read.config(state="active")
+        
+        btn_update.configure(bg="white")
+        btn_update.config(state="active")
+        
+        btn_delete.configure(bg="#AED6F1")
+        btn_delete.config(state="disabled")

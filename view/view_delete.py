@@ -4,18 +4,18 @@ import model.conn as db
 from tkinter import messagebox
 from tkinter import ttk
 
-def actualizarEstudiante(f_body):
+def eliminarEstudiante(f_body):
 
-    global img_update,img_find
+    global img_delete,img_find
 
     #####Frame Description
     f_description=Frame(f_body,width=200,height=300,bg="#407BFF")
     f_description.place(x=0,y=0)
 
-    lb_title_ppal=Label(f_description,text="Actualizar Estudiante",width=12,fg="white",bg="#407BFF",font=(vg.g_font,16,"bold"),wraplength=200)
+    lb_title_ppal=Label(f_description,text="Eliminar Estudiante",width=12,fg="white",bg="#407BFF",font=(vg.g_font,16,"bold"),wraplength=200)
     lb_title_ppal.place(x=10,y=50)
     
-    lb_title_secund=Label(f_description,text="Para actualizar un estudiante en el sistema por favor seleccione el ID",width=15,fg="black",bg="#407BFF",font=(vg.g_font,12),wraplength=150)
+    lb_title_secund=Label(f_description,text="Para eliminar un estudiante en el sistema por favor seleccione el ID",width=15,fg="black",bg="#407BFF",font=(vg.g_font,12),wraplength=150)
     lb_title_secund.place(x=20,y=120)
 
     #####Frame Form
@@ -85,34 +85,42 @@ def actualizarEstudiante(f_body):
                     et_lastname.insert(0, arr_students[2])
                     et_age.insert(0, arr_students[3])
 
-                    btn_update.configure(state="active")
+                    et_name.configure(state="disabled")
+                    et_lastname.configure(state="disabled")
+                    et_age.configure(state="disabled")
+
+                    btn_delete.configure(state="active")
         else:
             messagebox.showwarning(title="Selección de ID",message="Por favor debe seleccionar un ID de estudiante")
 
-    ##
-    def actualizarEstudiante():
+      ##
+    def eliminarEstudiante():
         if et_id.get() != "":
             if et_name.get() != "" and et_age.get() != "" and et_lastname.get() != "":
                 if (any(chr.isdigit() for chr in et_name.get()) != True):
                     if (any(chr.isdigit() for chr in et_lastname.get()) != True):
                         if et_age.get().isnumeric():
                             id=et_id.get()
-                            edad=et_age.get()
-                            apellido=et_lastname.get()
-                            nombre=et_name.get()
 
-                            db.actualizarDatos(id,nombre,apellido,edad)
+                            db.eliminarDatosId(id)
 
                             et_id.configure(state="normal")
                             et_id.delete(0,END)
                             et_id.configure(state="readonly")
-                            et_name.delete(0,END)
-                            et_lastname.delete(0,END)
-                            et_age.delete(0,END)
 
+                            et_name.configure(state="normal")
+                            et_name.delete(0,END)
                             et_name.configure(state="disabled")
+                            
+                            et_lastname.configure(state="normal")
+                            et_lastname.delete(0,END)
                             et_lastname.configure(state="disabled")
+                            
+                            et_age.configure(state="normal")
+                            et_age.delete(0,END)
                             et_age.configure(state="disabled")
+
+                            et_id["values"]=recuperarID()
 
                         else:
                             messagebox.showwarning(title="Tipo de dato inválido",message="Por favor debe ingresar un número en el campo edad")
@@ -124,11 +132,11 @@ def actualizarEstudiante(f_body):
                 messagebox.showerror(title="Error de ingreso de datos",message="Por favor llene todos los campos")
         else:
             messagebox.showerror(title="Error de selección de ID",message="Por favor seleccione el ID del estudiante")
-
+    
     ##
-    img_update = PhotoImage(file='./img/img-update-2.png')
-    btn_update=Button(f_form,state="disabled",image=img_update,width=200,pady=7,text="Actualizar Estudiante",bg="white",fg="black",border=0,font=(vg.g_font,10),compound=LEFT,command=actualizarEstudiante)
-    btn_update.place(x=200,y=220)
+    img_delete = PhotoImage(file='./img/img-delete-2.png')
+    btn_delete=Button(f_form,image=img_delete,state="disabled",width=200,pady=7,text="Eliminar Estudiante",bg="white",fg="black",border=0,font=(vg.g_font,10),compound=LEFT,command=eliminarEstudiante)
+    btn_delete.place(x=200,y=220)
 
     ##
     img_find = PhotoImage(file='./img/img-find.png')

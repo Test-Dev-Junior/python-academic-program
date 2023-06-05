@@ -69,3 +69,14 @@ def leerDatosId(id):
         messagebox.showerror(title="Guardado de datos",message="Se produjo un error con la conexión de la DB al intentar recuperar los datos")
         #print("Se produjo un error con la conexión de la DB al intentar recuperar los datos")
     cursor.close()
+
+def eliminarDatosId(id):
+    cursor=connection.cursor()
+    query=f""" DELETE FROM tb_estudiante where id='{id}' """
+    try:
+        cursor.execute(query)
+        messagebox.showinfo(title="Eliminación de datos",message="Se elimino el registro exitosamente")
+    except:
+        messagebox.showerror(title="Eliminación de datos",message="Se produjo un error con la conexión de la DB al intentar eliminar el registro")
+        #print("Se produjo un error con la conexión de la DB al intentar eliminar el registro")
+    cursor.close()
